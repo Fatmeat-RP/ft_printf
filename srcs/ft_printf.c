@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 00:15:21 by acarle-m          #+#    #+#             */
-/*   Updated: 2022/01/05 16:36:09 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/01/05 21:49:56 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,47 @@ int	get_index(char type)
 	return (-1);
 }
 
-int	printage(int i, void *pap)
+int	printage(int i, va_list ap)
 {
-	int	count;
+	int		count;
+	void	*pap;
 
 	count = -1;
 	if (i == 0)
+	{
+		pap = va_arg(ap, void *);
 		count = ft_putchar((char)pap);
+	}
 	else if (i == 1)
+	{
+		pap = va_arg(ap, void *);
 		count = ft_putstr((char *)pap);
+	}
 	else if (i == 2)
+	{
+		pap = va_arg(ap, void *);
 		count = ft_putp((unsigned long)pap);
+	}
 	else if (i == 3 || i == 4)
+	{
+		pap = va_arg(ap, void *);
 		count = ft_putint((int)pap);
+	}
 	else if (i == 5)
+	{
+		pap = va_arg(ap, void *);
 		count = ft_putunsigned((unsigned int)pap);
+	}
 	else if (i == 6)
+	{
+		pap = va_arg(ap, void *);
 		count = ft_putlhex((unsigned int)pap);
+	}
 	else if (i == 7)
+	{
+		pap = va_arg(ap, void *);
 		count = ft_putuhex((unsigned int)pap);
+	}
 	else if (i == 8)
 		count = ft_putmod();
 	return (count);
@@ -57,20 +79,21 @@ int	ft_writeft(const char *s, va_list ap)
 	int		count;
 	int		i;
 	int		index;
-	void	*pap;
 
 	i = -1;
 	count = 0;
 	while (s[++i])
 	{
-		if (s[i] == '%')
+		if (s[i] == '%' && s[i + 1])
 		{
-			i++;
-			index = get_index(s[i]);
-			pap = va_arg(ap, void *);
-			count += printage(index, pap);
-			if (count == -1)
-				return (-1);
+			index = get_index(s[i + 1]);
+			if (index == -1)
+				count += ft_putchar(s[i++ + 1]);
+			else
+			{
+				count += printage(index, ap);
+				i++;
+			}	
 		}
 		else
 			count += ft_putchar(s[i]);
