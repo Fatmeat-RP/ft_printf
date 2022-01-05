@@ -6,7 +6,7 @@
 /*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 00:15:21 by acarle-m          #+#    #+#             */
-/*   Updated: 2022/01/05 21:49:56 by acarle-m         ###   ########.fr       */
+/*   Updated: 2022/01/05 22:25:02 by acarle-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,22 @@ int	printage(int i, va_list ap)
 	void	*pap;
 
 	count = -1;
+	if (i < 8)
+		pap = va_arg(ap, void *);
 	if (i == 0)
-	{
-		pap = va_arg(ap, void *);
 		count = ft_putchar((char)pap);
-	}
 	else if (i == 1)
-	{
-		pap = va_arg(ap, void *);
 		count = ft_putstr((char *)pap);
-	}
 	else if (i == 2)
-	{
-		pap = va_arg(ap, void *);
 		count = ft_putp((unsigned long)pap);
-	}
 	else if (i == 3 || i == 4)
-	{
-		pap = va_arg(ap, void *);
 		count = ft_putint((int)pap);
-	}
 	else if (i == 5)
-	{
-		pap = va_arg(ap, void *);
 		count = ft_putunsigned((unsigned int)pap);
-	}
 	else if (i == 6)
-	{
-		pap = va_arg(ap, void *);
 		count = ft_putlhex((unsigned int)pap);
-	}
 	else if (i == 7)
-	{
-		pap = va_arg(ap, void *);
 		count = ft_putuhex((unsigned int)pap);
-	}
 	else if (i == 8)
 		count = ft_putmod();
 	return (count);
