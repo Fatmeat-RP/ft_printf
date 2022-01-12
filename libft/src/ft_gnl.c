@@ -86,10 +86,11 @@ static char	*ft_cleanlione(char *line)
 
 char	*get_next_line(int fd)
 {
-	static char	*line[_SC_OPEN_MAX];
+	static char	*line[OPEN_MAX];
 	t_struct	st;
 
-	st.rd = read(fd, st.buf, BUFFER_SIZE);
+	if (!line || ft_strchr(line[fd], '\n'))
+		st.rd = read(fd, st.buf, BUFFER_SIZE);
 	if ((!st.rd && ft_strchr(line[fd], '\n') == NULL && !ft_strlen(line[fd], 2))
 		|| (st.rd == -1))
 	{
